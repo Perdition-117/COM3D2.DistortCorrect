@@ -81,12 +81,9 @@ namespace COM3D2.DistortCorrect.Plugin {
 
 		void IKPreInit(Maid maid) {
 			FullBodyIKCtrl fbikc = maid.body0.IKCtrl;
-			Transform mouth = (Transform)Helper.GetInstanceField(typeof(FullBodyIKCtrl), fbikc, "m_Mouth");
-			if (mouth) DestroyImmediate(mouth.gameObject);
-			Transform nippleL = (Transform)Helper.GetInstanceField(typeof(FullBodyIKCtrl), fbikc, "m_NippleL");
-			if (nippleL) DestroyImmediate(nippleL.gameObject);
-			Transform nippleR = (Transform)Helper.GetInstanceField(typeof(FullBodyIKCtrl), fbikc, "m_NippleR");
-			if (nippleR) DestroyImmediate(nippleR.gameObject);
+			if (fbikc.m_Mouth) DestroyImmediate(fbikc.m_Mouth.gameObject);
+			if (fbikc.m_NippleL) DestroyImmediate(fbikc.m_NippleL.gameObject);
+			if (fbikc.m_NippleR) DestroyImmediate(fbikc.m_NippleR.gameObject);
 		}
 
 		// WideSlider
@@ -122,13 +119,6 @@ namespace COM3D2.DistortCorrect.Plugin {
 
    //new string[] { "", "" },
 };
-
-		FieldInfo f_muneLParent = Helper.GetFieldInfo(typeof(TBody), "m_trHitParentL");
-		FieldInfo f_muneLChild = Helper.GetFieldInfo(typeof(TBody), "m_trHitChildL");
-		FieldInfo f_muneRParent = Helper.GetFieldInfo(typeof(TBody), "m_trHitParentR");
-		FieldInfo f_muneRChild = Helper.GetFieldInfo(typeof(TBody), "m_trHitChildR");
-		FieldInfo f_muneLSub = Helper.GetFieldInfo(typeof(TBody), "m_trsMuneLsub");
-		FieldInfo f_muneRSub = Helper.GetFieldInfo(typeof(TBody), "m_trsMuneRsub");
 
 		void WideSlider(Maid maid) {
 			TBody tbody = maid.body0;
@@ -456,12 +446,12 @@ namespace COM3D2.DistortCorrect.Plugin {
 					pos = Vector3.Scale(pos, bonePositionRate[name]);
 				}
 
-				Transform muneLParent = f_muneLParent.GetValue(tbody) as Transform;
-				Transform muneLChild = f_muneLChild.GetValue(tbody) as Transform;
-				Transform muneRParent = f_muneRParent.GetValue(tbody) as Transform;
-				Transform muneRChild = f_muneRChild.GetValue(tbody) as Transform;
-				Transform muneLSub = f_muneLSub.GetValue(tbody) as Transform;
-				Transform muneRSub = f_muneRSub.GetValue(tbody) as Transform;
+				Transform muneLParent = tbody.m_trHitParentL;
+				Transform muneLChild = tbody.m_trHitChildL;
+				Transform muneRParent = tbody.m_trHitParentR;
+				Transform muneRChild = tbody.m_trHitChildR;
+				Transform muneLSub = tbody.m_trsMuneLsub;
+				Transform muneRSub = tbody.m_trsMuneRsub;
 				if (muneLChild && muneLParent && muneRChild && muneRParent) {
 					muneLChild.localPosition = muneLSub.localPosition;
 					muneLParent.localPosition = muneLSub.localPosition;
@@ -514,19 +504,12 @@ namespace COM3D2.DistortCorrect.Plugin {
 
 			// COM3D2追加処理
 			// ボーンポジション系
-			var listBoneMorphPos = Helper.GetInstanceField(typeof(BoneMorph_), boneMorph_, "m_listBoneMorphPos");
-			var ienumPos = listBoneMorphPos as IEnumerable;
-
-			System.Reflection.Assembly asmPos = System.Reflection.Assembly.GetAssembly(typeof(BoneMorph_));
-			Type listBoneMorphPosType = listBoneMorphPos.GetType();
-			Type boneMorphPosType = asmPos.GetType("BoneMorph_+BoneMorphPos");
-
-			foreach (object o in ienumPos) {
-				string strPropName = (string)Helper.GetInstanceField(boneMorphPosType, o, "strPropName");
-				Transform trs = (Transform)Helper.GetInstanceField(boneMorphPosType, o, "trBone");
-				Vector3 defPos = (Vector3)Helper.GetInstanceField(boneMorphPosType, o, "m_vDefPos");
-				Vector3 addMin = (Vector3)Helper.GetInstanceField(boneMorphPosType, o, "m_vAddMin");
-				Vector3 addMax = (Vector3)Helper.GetInstanceField(boneMorphPosType, o, "m_vAddMax");
+			foreach (var o in boneMorph_.m_listBoneMorphPos) {
+				string strPropName = o.strPropName;
+				Transform trs = o.trBone;
+				Vector3 defPos = o.m_vDefPos;
+				Vector3 addMin = o.m_vAddMin;
+				Vector3 addMax = o.m_vAddMax;
 
 				if (strPropName == "Nosepos")
 					trs.localPosition = Lerp(addMin, defPos, addMax, (float)boneMorph_.POS_Nose, sliderScale);
@@ -546,19 +529,12 @@ namespace COM3D2.DistortCorrect.Plugin {
 			}
 
 			// ボーンスケール系
-			var listBoneMorphScl = Helper.GetInstanceField(typeof(BoneMorph_), boneMorph_, "m_listBoneMorphScl");
-			var ienumScl = listBoneMorphScl as IEnumerable;
-
-			System.Reflection.Assembly asmScl = System.Reflection.Assembly.GetAssembly(typeof(BoneMorph_));
-			Type listBoneMorphSclType = listBoneMorphScl.GetType();
-			Type boneMorphSclType = asmScl.GetType("BoneMorph_+BoneMorphScl");
-
-			foreach (object o in ienumScl) {
-				string strPropName = (string)Helper.GetInstanceField(boneMorphSclType, o, "strPropName");
-				Transform trs = (Transform)Helper.GetInstanceField(boneMorphSclType, o, "trBone");
-				Vector3 defScl = (Vector3)Helper.GetInstanceField(boneMorphSclType, o, "m_vDefScl");
-				Vector3 addMin = (Vector3)Helper.GetInstanceField(boneMorphSclType, o, "m_vAddMin");
-				Vector3 addMax = (Vector3)Helper.GetInstanceField(boneMorphSclType, o, "m_vAddMax");
+			foreach (var o in boneMorph_.m_listBoneMorphScl) {
+				string strPropName = o.strPropName;
+				Transform trs = o.trBone;
+				Vector3 defScl = o.m_vDefScl;
+				Vector3 addMin = o.m_vAddMin;
+				Vector3 addMax = o.m_vAddMax;
 
 				if (strPropName == "Earscl_L" || strPropName == "Earscl_R") {
 					trs.localScale = Lerp(addMin, defScl, addMax, (float)boneMorph_.SCALE_Ear, sliderScale);
@@ -576,19 +552,12 @@ namespace COM3D2.DistortCorrect.Plugin {
 			}
 
 			// ボーンローテーション系
-			var listBoneMorphRot = Helper.GetInstanceField(typeof(BoneMorph_), boneMorph_, "m_listBoneMorphRot");
-			var ienumRot = listBoneMorphRot as IEnumerable;
-
-			System.Reflection.Assembly asmRot = System.Reflection.Assembly.GetAssembly(typeof(BoneMorph_));
-			Type listBoneMorphRotType = listBoneMorphRot.GetType();
-			Type boneMorphRotType = asmRot.GetType("BoneMorph_+BoneMorphRotatio");
-
-			foreach (object o in ienumRot) {
-				string strPropName = (string)Helper.GetInstanceField(boneMorphRotType, o, "strPropName");
-				Transform trs = (Transform)Helper.GetInstanceField(boneMorphRotType, o, "trBone");
-				Quaternion defRot = (Quaternion)Helper.GetInstanceField(boneMorphRotType, o, "m_vDefRotate");
-				Quaternion addMin = (Quaternion)Helper.GetInstanceField(boneMorphRotType, o, "m_vAddMin");
-				Quaternion addMax = (Quaternion)Helper.GetInstanceField(boneMorphRotType, o, "m_vAddMax");
+			foreach (var o in boneMorph_.m_listBoneMorphRot) {
+				string strPropName = o.strPropName;
+				Transform trs = o.trBone;
+				Quaternion defRot = o.m_vDefRotate;
+				Quaternion addMin = o.m_vAddMin;
+				Quaternion addMax = o.m_vAddMax;
 
 				if (strPropName == "Earrot_L" || strPropName == "Earrot_R") {
 					trs.localRotation = RotLerp(addMin, defRot, addMax, (float)boneMorph_.ROT_Ear, sliderScale);
