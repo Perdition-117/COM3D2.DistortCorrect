@@ -1,0 +1,37 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "COM3D2.DistortCorrect.Plugin", "COM3D2.DistortCorrect.Plugin\COM3D2.DistortCorrect.Plugin.csproj", "{E8C212AB-4CDF-433D-B556-2B35EF50B83D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "COM3D2.DistortCorrect.Managed", "COM3D2.DistortCorrect.Managed\COM3D2.DistortCorrect.Managed.csproj", "{9A97D255-9807-4BE0-A21E-D8442372A598}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "COM3D2.DistortCorrect.Patcher", "COM3D2.DistortCorrect.Patcher\COM3D2.DistortCorrect.Patcher.csproj", "{C8231E61-290C-4313-A7B2-69E87EE486B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8C212AB-4CDF-433D-B556-2B35EF50B83D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8C212AB-4CDF-433D-B556-2B35EF50B83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8C212AB-4CDF-433D-B556-2B35EF50B83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8C212AB-4CDF-433D-B556-2B35EF50B83D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A97D255-9807-4BE0-A21E-D8442372A598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A97D255-9807-4BE0-A21E-D8442372A598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A97D255-9807-4BE0-A21E-D8442372A598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A97D255-9807-4BE0-A21E-D8442372A598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8231E61-290C-4313-A7B2-69E87EE486B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8231E61-290C-4313-A7B2-69E87EE486B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8231E61-290C-4313-A7B2-69E87EE486B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8231E61-290C-4313-A7B2-69E87EE486B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F5B9AE0D-7A20-4D15-84B7-D111752F63E4}
+	EndGlobalSection
+EndGlobal

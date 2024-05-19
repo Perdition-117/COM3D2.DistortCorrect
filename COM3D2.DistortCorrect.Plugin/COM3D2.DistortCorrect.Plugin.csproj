@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net35</TargetFramework>
+    <LangVersion>10</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="COM3D2.GameLibs" Version="2.25.2-r.0" />
+    <PackageReference Include="UnityEngine" Version="5.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="COM3D2.AddModsSlider.Plugin">
+      <HintPath>..\lib\COM3D2.AddModsSlider.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="COM3D2.ExternalSaveData.Managed">
+      <HintPath>..\lib\COM3D2.ExternalSaveData.Managed.dll</HintPath>
+    </Reference>
+    <Reference Include="COM3D2.MaidVoicePitch.Plugin">
+      <HintPath>..\lib\COM3D2.MaidVoicePitch.Managed.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityInjector">
+      <HintPath>..\lib\UnityInjector.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
