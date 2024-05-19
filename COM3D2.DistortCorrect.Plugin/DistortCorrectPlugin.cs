@@ -13,7 +13,7 @@ using CM3D2.ExternalSaveData.Managed;
 
 namespace COM3D2.DistortCorrect.Plugin {
 	[PluginName("DistortCorrect")]
-	[PluginVersion("0.4.0.5")]
+	[PluginVersion("0.4.0.6")]
 	class DistortCorrectPlugin : PluginBase {
 		BoneMorph bm = new BoneMorph();
 		bool sceneChange = false;
@@ -71,12 +71,12 @@ namespace COM3D2.DistortCorrect.Plugin {
 				mi_WideSlider.Invoke(maidVoicePitch, new object[] { maid });
 			}
 			//mi_EyeBall.Invoke(maidVoicePitch, new object[] { maid });
-			if (SceneManager.GetActiveScene().name != "ScenePhotoMode") {
-				if (maid.body0 != null && maid.body0.isLoadedBody) {
-					IKPreInit(maid);
-					maid.body0.IKCtrl.Init();
-				}
-			}
+			//if (SceneManager.GetActiveScene().name != "ScenePhotoMode") {
+			//    if (maid.body0 != null && maid.body0.isLoadedBody) {
+			//        IKPreInit(maid);
+			//        maid.body0.IKCtrl.Init();
+			//    }
+			//}
 		}
 
 		void IKPreInit(Maid maid) {

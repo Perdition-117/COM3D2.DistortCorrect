@@ -156,6 +156,7 @@ namespace CM3D2.DistortCorrect.Managed {
 			mi_SetScale.Invoke(null, new object[] { "sintyou", "Bip01 Spine1a_SCL_", 1f, 1f, 1f, 1f, 1f, 1f });
 			mi_SetScale.Invoke(null, new object[] { "sintyou", "Bip01 Spine1a", 1f, 1f, 1f, 1f, 1f, 1f });
 			mi_SetScale.Invoke(null, new object[] { "sintyou", "Bip01 ? Clavicle", 1f, 1f, 1f, 1f, 1f, 1f });
+			mi_SetScale.Invoke(null, new object[] { "sintyou", "Bip01 ? Clavicle_SCL_", 1f, 1f, 1f, 1f, 1f, 1f });
 			mi_SetScale.Invoke(null, new object[] { "sintyou", "Bip01 ? UpperArm", 1f, 1f, 1f, 1f, 1f, 1f });
 			mi_SetScale.Invoke(null, new object[] { "sintyou", "Bip01 ? Forearm", 1f, 1f, 1f, 1f, 1f, 1f });
 			mi_SetScale.Invoke(null, new object[] { "sintyou", "Bip01 ? Hand", 1f, 1f, 1f, 1f, 1f, 1f });
