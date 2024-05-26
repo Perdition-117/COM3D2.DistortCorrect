@@ -64,7 +64,7 @@ namespace CM3D2.DistortCorrect.Managed {
 		}
 
 		public static void PreBlend(BoneMorph_ bm) {
-			Maid maid = PluginHelper.GetMaid(bm);
+			TryGetMaid(bm, out var maid);
 			ResetBoneDic(maid, false);
 		}
 
@@ -266,6 +266,23 @@ namespace CM3D2.DistortCorrect.Managed {
 			}
 
 			return false;
+		}
+
+		// BoneMorph_を手がかりに、Maidを得る
+		private static bool TryGetMaid(BoneMorph_ boneMorph_, out Maid maid) {
+			maid = null;
+			if (boneMorph_ == null) {
+				return false;
+			}
+			maid = GetMaids().FirstOrDefault(e => e.body0?.bonemorph != null && e.body0.bonemorph == boneMorph_);
+			return maid;
+		}
+
+		private static IEnumerable<Maid> GetMaids() {
+			var characterManager = GameMain.Instance.CharacterMgr;
+			for (var i = 0; i < characterManager.GetStockMaidCount(); i++) {
+				yield return characterManager.GetStockMaid(i);
+			}
 		}
 	}
 }

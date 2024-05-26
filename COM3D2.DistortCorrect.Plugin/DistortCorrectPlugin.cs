@@ -57,26 +57,23 @@ namespace COM3D2.DistortCorrect.Plugin {
 		MethodInfo mi_WideSlider = typeof(CM3D2.MaidVoicePitch.Plugin.MaidVoicePitch).GetMethod("WideSlider", BindingFlags.NonPublic | BindingFlags.Instance);
 		MethodInfo mi_EyeBall = typeof(CM3D2.MaidVoicePitch.Plugin.MaidVoicePitch).GetMethod("EyeBall", BindingFlags.NonPublic | BindingFlags.Instance);
 		void boneMorph_BlendCallback(BoneMorph_ boneMorph_) {
-			Maid maid = PluginHelper.GetMaid(boneMorph_);
-			if (maid == null) {
-				return;
+			if (TryGetMaid(boneMorph_, out var maid)) {
+				bool wideSlider = ExSaveData.GetBool(maid, "CM3D2.MaidVoicePitch", "WIDESLIDER", false);
+				bool limbFix = ExSaveData.GetBool(maid, "CM3D2.MaidVoicePitch", "LIMBSFIX", false);
+				bool enable = wideSlider && limbFix;
+				if (enable) {
+					WideSlider(maid);
+				} else {
+					mi_WideSlider.Invoke(maidVoicePitch, new object[] { maid });
+				}
+				//mi_EyeBall.Invoke(maidVoicePitch, new object[] { maid });
+				//if (SceneManager.GetActiveScene().name != "ScenePhotoMode") {
+				//    if (maid.body0 != null && maid.body0.isLoadedBody) {
+				//        IKPreInit(maid);
+				//        maid.body0.IKCtrl.Init();
+				//    }
+				//}
 			}
-
-			bool wideSlider = ExSaveData.GetBool(maid, "CM3D2.MaidVoicePitch", "WIDESLIDER", false);
-			bool limbFix = ExSaveData.GetBool(maid, "CM3D2.MaidVoicePitch", "LIMBSFIX", false);
-			bool enable = wideSlider && limbFix;
-			if (enable) {
-				WideSlider(maid);
-			} else {
-				mi_WideSlider.Invoke(maidVoicePitch, new object[] { maid });
-			}
-			//mi_EyeBall.Invoke(maidVoicePitch, new object[] { maid });
-			//if (SceneManager.GetActiveScene().name != "ScenePhotoMode") {
-			//    if (maid.body0 != null && maid.body0.isLoadedBody) {
-			//        IKPreInit(maid);
-			//        maid.body0.IKCtrl.Init();
-			//    }
-			//}
 		}
 
 		void IKPreInit(Maid maid) {
@@ -639,6 +636,23 @@ namespace COM3D2.DistortCorrect.Plugin {
 			}
 
 			return hiraerchy;
+		}
+
+		// BoneMorph_を手がかりに、Maidを得る
+		private static bool TryGetMaid(BoneMorph_ boneMorph_, out Maid maid) {
+			maid = null;
+			if (boneMorph_ == null) {
+				return false;
+			}
+			maid = GetMaids().FirstOrDefault(e => e.body0?.bonemorph != null && e.body0.bonemorph == boneMorph_);
+			return maid;
+		}
+
+		private static IEnumerable<Maid> GetMaids() {
+			var characterManager = GameMain.Instance.CharacterMgr;
+			for (var i = 0; i < characterManager.GetStockMaidCount(); i++) {
+				yield return characterManager.GetStockMaid(i);
+			}
 		}
 	}
 }
