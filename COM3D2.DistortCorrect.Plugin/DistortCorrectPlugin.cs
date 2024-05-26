@@ -88,7 +88,6 @@ namespace COM3D2.DistortCorrect.Plugin {
 
 		// WideSlider
 		string PluginName { get { return "CM3D2.MaidVoicePitch"; } }
-		BodyBone bodyBone = new BodyBone();
 
 		private static string[][] boneAndPropNameList = new string[][]
 {
@@ -315,15 +314,15 @@ namespace COM3D2.DistortCorrect.Plugin {
 			bonePosition["Mune_L"] = munePosL;
 			bonePosition["Mune_R"] = munePosR;
 
-			SetBoneScaleFromList2(boneScale, maid, "CLVSCL", bodyBone.ClavicleScaleList);
-			SetBoneScaleFromList2(boneScale, maid, "UPARMSCL", bodyBone.upperArmScaleList);
-			SetBoneScaleFromList2(boneScale, maid, "FARMSCL", bodyBone.foreArmScaleList);
-			SetBoneScaleFromList2(boneScale, maid, "HANDSCL", bodyBone.handScaleList);
+			SetBoneScaleFromList2(boneScale, maid, "CLVSCL", BodyBone.ClavicleScales);
+			SetBoneScaleFromList2(boneScale, maid, "UPARMSCL", BodyBone.UpperArmScales);
+			SetBoneScaleFromList2(boneScale, maid, "FARMSCL", BodyBone.ForeArmScales);
+			SetBoneScaleFromList2(boneScale, maid, "HANDSCL", BodyBone.HandScales);
 
-			SetBoneScaleFromList2(bonePositionRate, maid, "CLVSCL", bodyBone.ClaviclePositionList);
-			SetBoneScaleFromList2(bonePositionRate, maid, "UPARMSCL", bodyBone.upperArmPositionList);
-			SetBoneScaleFromList2(bonePositionRate, maid, "FARMSCL", bodyBone.foreArmPositionList);
-			SetBoneScaleFromList2(bonePositionRate, maid, "HANDSCL", bodyBone.handPositionList);
+			SetBoneScaleFromList2(bonePositionRate, maid, "CLVSCL", BodyBone.ClaviclePositions);
+			SetBoneScaleFromList2(bonePositionRate, maid, "UPARMSCL", BodyBone.UpperArmPositions);
+			SetBoneScaleFromList2(bonePositionRate, maid, "FARMSCL", BodyBone.ForeArmPositions);
+			SetBoneScaleFromList2(bonePositionRate, maid, "HANDSCL", BodyBone.HandPositions);
 
 			// スケール変更するボーンをリストに一括登録
 			SetBoneScaleFromList(boneScale, maid, boneAndPropNameList);
