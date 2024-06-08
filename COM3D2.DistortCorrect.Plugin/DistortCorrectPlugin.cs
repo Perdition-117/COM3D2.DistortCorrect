@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,13 +14,10 @@ namespace COM3D2.DistortCorrect.Plugin;
 [PluginVersion("0.4.0.6")]
 class DistortCorrectPlugin : PluginBase {
 	private bool _sceneChanged = false;
-	private MaidVoicePitch maidVoicePitch;
 
 	private void Start() {
 		var emp = new AddModsSlider.ExternalModsParam("LIMBSFIX", "手足の歪み修正", true, "toggle", "FACE_OFF");
 		AddModsSlider.AddExternalModsParam(emp);
-
-		maidVoicePitch = FindObjectOfType<MaidVoicePitch>();
 	}
 
 	private void OnLevelWasLoaded(int level) {
@@ -42,8 +38,6 @@ class DistortCorrectPlugin : PluginBase {
 	/// ボーンのブレンド処理が行われる際、拡張スライダーに関連する補正は基本的にここで行う。
 	/// 毎フレーム呼び出されるわけではないことに注意
 	/// </summary>
-	MethodInfo mi_WideSlider = typeof(MaidVoicePitch).GetMethod("WideSlider", BindingFlags.NonPublic | BindingFlags.Instance);
-	MethodInfo mi_EyeBall = typeof(MaidVoicePitch).GetMethod("EyeBall", BindingFlags.NonPublic | BindingFlags.Instance);
 	private void BoneMorph_BlendCallback(BoneMorph_ boneMorph_) {
 		if (TryGetMaid(boneMorph_, out var maid)) {
 			var wideSlider = ExSaveData.GetBool(maid, "CM3D2.MaidVoicePitch", "WIDESLIDER", false);
@@ -52,9 +46,9 @@ class DistortCorrectPlugin : PluginBase {
 			if (enable) {
 				WideSlider(maid);
 			} else {
-				mi_WideSlider.Invoke(maidVoicePitch, new object[] { maid });
+				CM3D2.MaidVoicePitch.Plugin.MaidVoicePitch.WideSlider(maid);
 			}
-			//mi_EyeBall.Invoke(maidVoicePitch, new object[] { maid });
+			//CM3D2.MaidVoicePitch.Plugin.MaidVoicePitch.EyeBall(maid);
 			//if (SceneManager.GetActiveScene().name != "ScenePhotoMode") {
 			//    if (maid.body0 != null && maid.body0.isLoadedBody) {
 			//        IKPreInit(maid);
