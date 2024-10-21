@@ -72,7 +72,7 @@ public class DistortCorrectManaged {
 			InitBoneDic();
 		}
 
-		if (maid == null) {
+		if (maid == null || maid.IsCrcBody) {
 			return;
 		}
 
@@ -204,47 +204,49 @@ public class DistortCorrectManaged {
 	}
 
 	private static void SetUdeScale(string tag, float x, float y, float z, float x2, float y2, float z2) {
-		BoneMorph.SetScale(tag, "Bip01 ? UpperArm_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Uppertwist_?", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Uppertwist1_?", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Uppertwist1_?", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Forearm", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Forearm_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Foretwist_?", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Foretwist1_?", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Foretwist_?", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Hand", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Hand_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger0", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger1", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger2", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger3", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger4", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger0_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger01", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger01_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger02", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger02_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger1_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger11", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger11_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger12", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger12_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger2_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger21", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger21_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger22", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger22_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger3_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger31", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger31_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger32", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger32_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger4_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger41", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger41_SCL_", x, y, z, x2, y2, z2);
-		BoneMorph.SetPosition(tag, "Bip01 ? Finger42", x, y, z, x2, y2, z2);
-		BoneMorph.SetScale(tag, "Bip01 ? Finger42_SCL_", x, y, z, x2, y2, z2);
+		void SetScale(string boneName) => BoneMorph.SetScale(tag, boneName, x, y, z, x2, y2, z2);
+		void SetPosition(string boneName) => BoneMorph.SetPosition(tag, boneName, x, y, z, x2, y2, z2);
+		SetScale("Bip01 ? UpperArm_SCL_");
+		SetScale("Uppertwist_?");
+		SetScale("Uppertwist1_?");
+		SetPosition("Uppertwist1_?");
+		SetPosition("Bip01 ? Forearm");
+		SetScale("Bip01 ? Forearm_SCL_");
+		SetScale("Foretwist_?");
+		SetScale("Foretwist1_?");
+		SetPosition("Foretwist_?");
+		SetPosition("Bip01 ? Hand");
+		SetScale("Bip01 ? Hand_SCL_");
+		SetPosition("Bip01 ? Finger0");
+		SetPosition("Bip01 ? Finger1");
+		SetPosition("Bip01 ? Finger2");
+		SetPosition("Bip01 ? Finger3");
+		SetPosition("Bip01 ? Finger4");
+		SetScale("Bip01 ? Finger0_SCL_");
+		SetPosition("Bip01 ? Finger01");
+		SetScale("Bip01 ? Finger01_SCL_");
+		SetPosition("Bip01 ? Finger02");
+		SetScale("Bip01 ? Finger02_SCL_");
+		SetScale("Bip01 ? Finger1_SCL_");
+		SetPosition("Bip01 ? Finger11");
+		SetScale("Bip01 ? Finger11_SCL_");
+		SetPosition("Bip01 ? Finger12");
+		SetScale("Bip01 ? Finger12_SCL_");
+		SetScale("Bip01 ? Finger2_SCL_");
+		SetPosition("Bip01 ? Finger21");
+		SetScale("Bip01 ? Finger21_SCL_");
+		SetPosition("Bip01 ? Finger22");
+		SetScale("Bip01 ? Finger22_SCL_");
+		SetScale("Bip01 ? Finger3_SCL_");
+		SetPosition("Bip01 ? Finger31");
+		SetScale("Bip01 ? Finger31_SCL_");
+		SetPosition("Bip01 ? Finger32");
+		SetScale("Bip01 ? Finger32_SCL_");
+		SetScale("Bip01 ? Finger4_SCL_");
+		SetPosition("Bip01 ? Finger41");
+		SetScale("Bip01 ? Finger41_SCL_");
+		SetPosition("Bip01 ? Finger42");
+		SetScale("Bip01 ? Finger42_SCL_");
 	}
 
 	public static bool JudgeSclBone(bool flag, GameObject bone) => flag || ScaleBoneHash.Contains(bone.name);
